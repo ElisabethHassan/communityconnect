@@ -47,37 +47,23 @@ public class Signup extends AppCompatActivity {
         if(pass.matches(".*[!@#$%^&*():;.,<>?].*")){
             correctness++;
         }
-        int maxU =0;
-        for(int i =0; i<pass.length() && maxU <1;i++){
+
+        for(int i =0; i<pass.length();i++){
             ch = pass.charAt(i);
             if(Character.isUpperCase((ch)))
                 capitalFlag=true;
             if(Character.isLowerCase(ch))
                 lowerCaseFlag=true;
             if(capitalFlag&&lowerCaseFlag)
+                correctness +=2;
 
 
-
-        return false;
-
-
-
-
-        for(int i=0;i < str.length();i++) {
-            ch = str.charAt(i);
-            if( Character.isDigit(ch)) {
-                numberFlag = true;
-            }
-            else if (Character.isUpperCase(ch)) {
-                capitalFlag = true;
-            } else if (Character.isLowerCase(ch)) {
-                lowerCaseFlag = true;
-            }
-            if(numberFlag && capitalFlag && lowerCaseFlag)
-                return true;
+        if(correctness==3){
+            return true;
         }
-        return false;
-    }
+
+    }return false;
+
     }
 
    private boolean confirmPasswords(){
