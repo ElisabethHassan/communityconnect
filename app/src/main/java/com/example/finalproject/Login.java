@@ -10,9 +10,9 @@ import android.widget.EditText;
 
 public class Login extends AppCompatActivity {
     EditText email, password;
-    Button signInButton;
+    Button loginButton;
 
-    View.OnClickListener signInListenter = new View.OnClickListener() {
+    View.OnClickListener loginListenter = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(Login.this, Options.class );
@@ -27,8 +27,9 @@ public class Login extends AppCompatActivity {
 
         email = findViewById(R.id.email_ET);
         password = findViewById(R.id.password_ET);
-        signInButton = findViewById(R.id.button);
+        loginButton = findViewById(R.id.button);
 
-        signInButton.setOnClickListener(signInListenter);
+        loginButton.setOnClickListener(loginListenter);
+        loginButton.setBackgroundColor(getResources().getColor(R.color.blue));
     }
 }
