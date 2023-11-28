@@ -18,9 +18,5 @@
     <string name="happening">Happening this week</string>
     <string name="featured">Featured</string>
     <string name="feed">Your feed</string>
-    <string name="time">12:00 pm - 3:00 pm</string>
-    <string name="date">Tuesday, October 10</string>
-    <string name="location">250 Bradyville Pike</string>
-    <string name="event">Nashville Rescue Mission</string>
 
 </resources>

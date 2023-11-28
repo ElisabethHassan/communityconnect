@@ -31,72 +31,72 @@
         tools:layout_editor_absoluteY="247dp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="310dp"
-        android:layout_height="229dp"
+        android:layout_width="213dp"
+        android:layout_height="172dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.685"
+        app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541">
+        app:layout_constraintVertical_bias="0.499">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="233dp"
+            android:layout_width="216dp"
+            android:layout_height="168dp"
             android:padding="4dp">
 
             <ImageView
                 android:id="@+id/header_image"
-                android:layout_width="300dp"
-                android:layout_height="119dp"
+                android:layout_width="185dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/gray_background"
+                android:src="@drawable/fooddrivepic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
                 android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/event"
-                android:textSize="16sp"
+                android:layout_width="164dp"
+                android:layout_height="17dp"
+                android:layout_marginEnd="36dp"
+                android:text="Nashville Rescue Mission"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header_image" />
-
+                tools:layout_editor_absoluteY="89dp" />
 
             <TextView
                 android:id="@+id/location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/location"
+                android:layout_width="103dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="96dp"
+                android:text="250 Bradyville Pike"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                tools:layout_editor_absoluteY="110dp" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/date"
+                android:layout_width="101dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="100dp"
+                android:text="Tuesday, October 10"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/location" />
+                tools:layout_editor_absoluteY="123dp" />
 
             <TextView
                 android:id="@+id/time"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="141dp"
                 android:layout_height="19dp"
-                android:text="@string/time"
-                tools:layout_editor_absoluteX="199dp"
-                tools:layout_editor_absoluteY="294dp" />
+                android:text="12:00pm - 3:00pm"
+                android:textSize="10sp"
+                tools:layout_editor_absoluteX="11dp"
+                tools:layout_editor_absoluteY="139dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -111,6 +111,8 @@
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="467dp" />
 
+
+
     <Button
         android:id="@+id/button2"
         android:layout_width="114dp"
@@ -118,6 +120,7 @@
         android:text="@string/featured"
         tools:layout_editor_absoluteX="96dp"
         tools:layout_editor_absoluteY="142dp" />
+
 
     <Button
         android:id="@+id/button3"
@@ -127,6 +130,72 @@
         tools:layout_editor_absoluteX="222dp"
         tools:layout_editor_absoluteY="142dp" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="213dp"
+        android:layout_height="172dp"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="501dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/header_image2"
+                android:layout_width="185dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/fooddrivepic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="164dp"
+                android:layout_height="17dp"
+                android:layout_marginEnd="36dp"
+                android:text="Nashville Rescue Mission"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="89dp" />
+
+            <TextView
+                android:id="@+id/location2"
+                android:layout_width="103dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="96dp"
+                android:text="250 Bradyville Pike"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="110dp" />
+
+            <TextView
+                android:id="@+id/date2"
+                android:layout_width="101dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="100dp"
+                android:text="Tuesday, October 10"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="123dp" />
+
+            <TextView
+                android:id="@+id/time2"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="141dp"
+                android:layout_height="19dp"
+                android:text="12:00pm - 3:00pm"
+                android:textSize="10sp"
+                tools:layout_editor_absoluteX="11dp"
+                tools:layout_editor_absoluteY="139dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
