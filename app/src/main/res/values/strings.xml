@@ -3,8 +3,6 @@
     <string name="signIn">Sign In</string>
     <string name="signUp">Sign Up</string>
     <string name="noAccount">Don\'t have an account?</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
     <string name="forgotPassword">Forgot your password?</string>
     <string name="enter_password">Enter Password</string>
     <string name="confirm_password">Confirm Password:</string>

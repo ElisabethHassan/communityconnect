@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Signup extends AppCompatActivity {
     EditText fullName, email, password, confirmPassword;
-    Button signUpButton;
+    Button signUpButton, loginButton;
 
    protected void onCreate(Bundle savedInstanceState){
        super.onCreate(savedInstanceState);
@@ -20,6 +20,9 @@ public class Signup extends AppCompatActivity {
        confirmPassword = findViewById(R.id.confirmPasswordET);
 
        signUpButton = findViewById(R.id.signUpSubmit);
+       signUpButton.setBackgroundColor(getResources().getColor(R.color.blue));
+       loginButton = findViewById(R.id.loginButton);
+       loginButton.setBackgroundColor(getResources().getColor(R.color.blue));
 
        signUpButton.setOnClickListener(new View.OnClickListener(){
 
@@ -32,7 +35,13 @@ public class Signup extends AppCompatActivity {
            }
        });
 
+       loginButton.setOnClickListener(new View.OnClickListener(){
 
+           @Override
+           public void onClick(View view) {
+               //switch to loginscreen
+           }
+       });
 
    }
 

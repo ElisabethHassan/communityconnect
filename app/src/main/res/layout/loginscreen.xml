@@ -20,18 +20,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/noAccount_id"
+        android:id="@+id/haveAccountTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="98dp"
         android:text="@string/noAccount"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toStartOf="@+id/signUp_id"
+        app:layout_constraintEnd_toStartOf="@+id/loginTV"
         app:layout_constraintTop_toBottomOf="@+id/signIn_id" />
 
     <TextView
-        android:id="@+id/signUp_id"
+        android:id="@+id/loginTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="184dp"
@@ -53,7 +53,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noAccount_id" />
+        app:layout_constraintTop_toBottomOf="@+id/haveAccountTV" />
 
     <TextView
         android:id="@+id/password_id"

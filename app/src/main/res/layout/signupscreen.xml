@@ -3,13 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#353535">
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="106dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="84dp"
+        android:text="Login"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/haveAccountTV"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/haveAccountTV"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Already have an account?"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/signUpText"
+        tools:layout_editor_absoluteX="44dp" />
 
     <EditText
         android:id="@+id/confirmPasswordET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
+        android:textColor="@color/white"
         android:ems="10"
         android:hint="@string/enter_password"
         android:inputType="text"
@@ -21,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
+        android:textColor="@color/white"
         android:layout_marginTop="48dp"
         android:text="@string/confirm_password"
         android:textSize="20sp"
@@ -31,6 +54,7 @@
         android:id="@+id/passwordET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_marginStart="44dp"
         android:ems="10"
         android:hint="@string/enter_valid_password"
@@ -45,6 +69,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="48dp"
         android:text="@string/password"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailET" />
@@ -55,6 +80,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="28dp"
         android:layout_weight="1"
+        android:textColor="@color/white"
         android:fontFamily="monospace"
         android:text="@string/sign_up"
         android:textAlignment="center"
@@ -68,6 +94,7 @@
         android:id="@+id/fullNameET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_marginStart="44dp"
         android:ems="10"
         android:hint="@string/enter_full_name"
@@ -89,6 +116,7 @@
     <TextView
         android:id="@+id/emailTV"
         android:layout_width="wrap_content"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="48dp"
@@ -102,19 +130,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="25dp"
         android:text="@string/full_name"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpText" />
+        app:layout_constraintTop_toBottomOf="@+id/haveAccountTV" />
 
     <Button
         android:id="@+id/signUpSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="66dp"
+        android:textColor="@color/white"
         android:layout_marginBottom="60dp"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
