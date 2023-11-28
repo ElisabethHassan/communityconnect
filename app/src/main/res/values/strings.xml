@@ -18,5 +18,6 @@
     <string name="happening">Happening this week</string>
     <string name="featured">Featured</string>
     <string name="feed">Your feed</string>
+    <string name="login">Login</string>
 
 </resources>

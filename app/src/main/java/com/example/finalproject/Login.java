@@ -30,6 +30,6 @@ public class Login extends AppCompatActivity {
         loginButton = findViewById(R.id.button);
 
         loginButton.setOnClickListener(loginListenter);
-        loginButton.setBackgroundColor(getResources().getColor(R.color.blue));
+
     }
 }

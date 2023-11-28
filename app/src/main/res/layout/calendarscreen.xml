@@ -14,7 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:minDate="01012023"
-        android:maxDate="01012032"/>
+        android:maxDate="01012032"
+        android:background="@color/gray"/>
 
     <ListView
         android:layout_width="419dp"
