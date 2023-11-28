@@ -112,7 +112,7 @@
         tools:layout_editor_absoluteY="467dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/toSignUp"
         android:layout_width="114dp"
         android:layout_height="45dp"
         android:text="@string/featured"
