@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+//THIS IS COMPLETE
 public class Home extends AppCompatActivity {
     Button signUpButton, loginButton;
     protected void onCreate(Bundle savedInstanceState){
@@ -18,7 +20,7 @@ public class Home extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Signup.class);
+                Intent intent = new Intent(getApplicationContext(), Signup.class);
                 startActivity(intent);
             }
         });
@@ -26,7 +28,7 @@ public class Home extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Login.class);
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
         });

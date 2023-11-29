@@ -1,15 +1,27 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuthException;
+
 
 public class Signup extends AppCompatActivity {
     EditText fullName, email, password, confirmPassword;
     Button signUpButton, loginButton;
+    FirebaseAuth firebaseAuth;
+
 
    protected void onCreate(Bundle savedInstanceState){
        super.onCreate(savedInstanceState);
@@ -19,8 +31,9 @@ public class Signup extends AppCompatActivity {
        password = findViewById(R.id.passwordET);
        confirmPassword = findViewById(R.id.confirmPasswordET);
 
-       signUpButton = findViewById(R.id.signUpSubmit);
+       firebaseAuth = FirebaseAuth.getInstance();
 
+       signUpButton = findViewById(R.id.signUpSubmit);
        loginButton = findViewById(R.id.loginButton);
 
        signUpButton.setOnClickListener(new View.OnClickListener(){
@@ -38,7 +51,8 @@ public class Signup extends AppCompatActivity {
 
            @Override
            public void onClick(View view) {
-               //switch to loginscreen
+               Intent intent = new Intent(getApplicationContext(), Login.class);
+               startActivity(intent);
            }
        });
 
@@ -81,5 +95,18 @@ public class Signup extends AppCompatActivity {
             return true;
         else
             return false;
+   }
+
+
+   public void onSignup(View view){
+       String userEmail = email.getText().toString();
+       String userPassword = password.getText().toString();
+       firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+           @Override
+           public void onComplete(@NonNull Task<AuthResult> task) {
+
+           }
+       });
+
    }
 }
