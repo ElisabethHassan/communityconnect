@@ -2,9 +2,11 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +22,10 @@ import com.google.firebase.auth.FirebaseAuthException;
 public class Signup extends AppCompatActivity {
     EditText fullName, email, password, confirmPassword;
     Button signUpButton, loginButton;
+
     FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+
     Boolean success;
 
 
@@ -33,6 +38,7 @@ public class Signup extends AppCompatActivity {
        confirmPassword = findViewById(R.id.confirmPasswordET);
 
        firebaseAuth = FirebaseAuth.getInstance();
+       firebaseUser = firebaseAuth.getCurrentUser();
 
        signUpButton = findViewById(R.id.signUpSubmit);
        loginButton = findViewById(R.id.loginButton);
@@ -45,7 +51,8 @@ public class Signup extends AppCompatActivity {
                if(passCheck)
                    success = confirmPasswords();
                if(success){
-                   //
+                   //add info to database
+                   onSignup();
                }
 
            }
@@ -102,13 +109,28 @@ public class Signup extends AppCompatActivity {
    }
 
 
-   public void onSignup(View view){
+   public void onSignup(){
        String userEmail = email.getText().toString();
        String userPassword = password.getText().toString();
+
+       // Validations for input email and password
+       if (TextUtils.isEmpty(userEmail)) {
+           Toast.makeText(getApplicationContext(), "Please enter email!!", Toast.LENGTH_LONG).show();
+           return;
+       }
+       if (TextUtils.isEmpty(userPassword)) {
+           Toast.makeText(getApplicationContext(), "Please enter password!!", Toast.LENGTH_LONG).show();
+           return;
+       }
+
        firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
            @Override
            public void onComplete(@NonNull Task<AuthResult> task) {
-
+                if (task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Registration Failed! Please try again.", Toast.LENGTH_LONG).show();
+                }
            }
        });
 
