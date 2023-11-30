@@ -24,7 +24,6 @@ public class Signup extends AppCompatActivity {
     Button signUpButton, loginButton;
 
     FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
 
     Boolean success;
 
@@ -38,7 +37,6 @@ public class Signup extends AppCompatActivity {
        confirmPassword = findViewById(R.id.confirmPasswordET);
 
        firebaseAuth = FirebaseAuth.getInstance();
-       firebaseUser = firebaseAuth.getCurrentUser();
 
        signUpButton = findViewById(R.id.signUpSubmit);
        loginButton = findViewById(R.id.loginButton);
@@ -53,6 +51,8 @@ public class Signup extends AppCompatActivity {
                if(success){
                    //add info to database
                    onSignup();
+                   Intent intent = new Intent(getApplicationContext(), Login.class);
+                   startActivity(intent);
                }
 
            }

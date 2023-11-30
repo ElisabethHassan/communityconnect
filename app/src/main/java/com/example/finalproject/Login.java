@@ -22,7 +22,6 @@ public class Login extends AppCompatActivity {
     EditText email, password;
     Button loginButton;
     FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
     TextView signup;
 
     View.OnClickListener signUPListener = new View.OnClickListener() {
