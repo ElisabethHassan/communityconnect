@@ -21,6 +21,7 @@ public class Signup extends AppCompatActivity {
     EditText fullName, email, password, confirmPassword;
     Button signUpButton, loginButton;
     FirebaseAuth firebaseAuth;
+    Boolean success;
 
 
    protected void onCreate(Bundle savedInstanceState){
@@ -42,7 +43,10 @@ public class Signup extends AppCompatActivity {
            public void onClick(View view) {
                boolean passCheck = validPasswordCheck();
                if(passCheck)
-                   confirmPasswords();
+                   success = confirmPasswords();
+               if(success){
+                   //
+               }
 
            }
        });

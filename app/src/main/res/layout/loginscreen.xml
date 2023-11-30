@@ -72,13 +72,16 @@
         android:id="@+id/button"
         android:layout_width="353dp"
         android:layout_height="55dp"
+        android:layout_marginStart="31dp"
         android:layout_marginEnd="27dp"
+        android:layout_marginBottom="26dp"
         android:backgroundTintMode="src_over"
         android:text="@string/login"
         app:backgroundTint="@color/blue"
         app:cornerRadius="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="650dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/email_ET"
