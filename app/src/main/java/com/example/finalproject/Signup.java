@@ -51,8 +51,7 @@ public class Signup extends AppCompatActivity {
                if(success){
                    //add info to database
                    onSignup();
-                   Intent intent = new Intent(getApplicationContext(), Login.class);
-                   startActivity(intent);
+
                }
 
            }
@@ -128,6 +127,8 @@ public class Signup extends AppCompatActivity {
            public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Registration Failed! Please try again.", Toast.LENGTH_LONG).show();
                 }

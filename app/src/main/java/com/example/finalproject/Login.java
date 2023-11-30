@@ -35,8 +35,7 @@ public class Login extends AppCompatActivity {
     View.OnClickListener loginListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(Login.this, Options.class );
-            startActivity(intent);
+            loginUser();
         }
     };
 
@@ -75,6 +74,8 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Login.this, Options.class );
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Login Failed! Please try again.", Toast.LENGTH_LONG).show();
                 }
