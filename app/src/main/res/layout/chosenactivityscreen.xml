@@ -12,7 +12,7 @@
         android:layout_height="103dp"
         android:layout_marginStart="78dp"
         android:layout_marginTop="20dp"
-        android:text="Blurb"
+        android:text="Nashville Humane Association is committed to finding responsible homes, controlling pet overpopulation, and promoting the humane treatment of animals, all while supporting pets and pet-families in our community."
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
@@ -45,9 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="68dp"
-        android:text="Event"
+        android:text="Humane Society Fundraiser Dinner"
         android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
