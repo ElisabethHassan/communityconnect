@@ -45,15 +45,11 @@ public class Signup extends AppCompatActivity {
 
            @Override
            public void onClick(View view) {
-               boolean passCheck = validPasswordCheck();
-               if(passCheck)
-                   success = confirmPasswords();
+               success = confirmPasswords();
                if(success){
                    //add info to database
                    onSignup();
-
                }
-
            }
        });
 
@@ -69,34 +65,6 @@ public class Signup extends AppCompatActivity {
    }
 
 
-    private boolean validPasswordCheck(){
-        String pass = password.getText().toString();
-        char ch;
-        int correctness = 0;
-        boolean capitalFlag = false;
-        boolean lowerCaseFlag = false;
-        //password must contain 1 number, 1 uppercase, 1 lowercase, 1 special character(!@#$%^&*():;.,<>?), and 0 spaces
-        if(pass.matches(".*[!@#$%^&*():;.,<>?].*")){
-            correctness++;
-        }
-
-        for(int i =0; i<pass.length();i++){
-            ch = pass.charAt(i);
-            if(Character.isUpperCase((ch)))
-                capitalFlag=true;
-            if(Character.isLowerCase(ch))
-                lowerCaseFlag=true;
-            if(capitalFlag&&lowerCaseFlag)
-                correctness +=2;
-
-
-        if(correctness==3){
-            return true;
-        }
-
-    }return false;
-
-    }
 
    private boolean confirmPasswords(){
         String pass = password.getText().toString();

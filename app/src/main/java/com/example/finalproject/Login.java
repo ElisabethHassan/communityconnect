@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     TextView signup;
 
-    View.OnClickListener signUPListener = new View.OnClickListener() {
+    View.OnClickListener signUpListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(Login.this, Signup.class );
@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         loginButton.setOnClickListener(loginListener);
-        signup.setOnClickListener(signUPListener);
+        signup.setOnClickListener(signUpListener);
     }
 
     private void loginUser(){
@@ -74,7 +74,6 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(Login.this, InterestsActivity.class );
                     Intent intent = new Intent(Login.this, Options.class );
                     startActivity(intent);
                 } else {

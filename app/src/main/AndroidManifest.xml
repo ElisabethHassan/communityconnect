@@ -19,7 +19,7 @@
             android:name=".Options"
             android:exported="true" />
         <activity
-            android:name=".Calendar"
+            android:name=".EventCalendar"
             android:exported="true" />
         <activity
             android:name=".Selection"
