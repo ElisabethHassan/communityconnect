@@ -19,5 +19,7 @@
     <string name="featured">Featured</string>
     <string name="feed">Your feed</string>
     <string name="login">Login</string>
+    <string name="calendar">Calendar</string>
+    <string name="back_to_options">Back to Options</string>
 
 </resources>

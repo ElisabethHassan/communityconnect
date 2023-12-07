@@ -1,40 +1,66 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class EventCalendar extends AppCompatActivity {
     CalendarView calendarView;
-
+    ListView eventListView;
     Calendar calendar;
+    List<Event> events;
+    ArrayAdapter<Event> eventAdapter;
+    Button toOptions;
 
-    protected void onCreate(Bundle savedInstanceState){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendarscreen);
 
         calendarView = findViewById(R.id.calendarView);
+        eventListView = findViewById(R.id.eventListView);
         calendar = Calendar.getInstance();
+        events = new ArrayList<>();
+        eventAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
 
-        setDate(12,1,2023);
+        // Set up the ListView
+        eventListView.setAdapter(eventAdapter);
+
+        setDate(12, 1, 2023);
         getDate();
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        toOptions= findViewById(R.id.toOptionsButton);
+        toOptions.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Toast.makeText(getApplicationContext(),(dayOfMonth + "/" + month + "/" + year), Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Options.class);
+                startActivity(intent);
             }
         });
 
-
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                displayEvents(dayOfMonth, month, year);
+                Toast.makeText(getApplicationContext(), (dayOfMonth + "/" + month + "/" + year), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
     public void getDate(){
         long date = calendarView.getDate();
@@ -50,6 +76,15 @@ public class EventCalendar extends AppCompatActivity {
         calendar.set(Calendar.DATE, day);
         long time = calendar.getTimeInMillis();
         calendarView.setDate(time);
+    }
+
+    private void displayEvents(int day, int month, int year) {
+        // TODO: Retrieve events for the selected date and update the 'events' list
+        events.clear();
+        //events.add("Event 1");
+        //events.add("Event 2");
+        // Update the ListView
+        eventAdapter.notifyDataSetChanged();
     }
 
 }
