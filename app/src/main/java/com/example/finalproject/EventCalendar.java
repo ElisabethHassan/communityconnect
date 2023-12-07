@@ -40,11 +40,8 @@ public class EventCalendar extends AppCompatActivity {
         // Set up the ListView
         eventListView.setAdapter(eventAdapter);
 
-        setDate(12, 1, 2023);
-        getDate();
         toOptions= findViewById(R.id.toOptionsButton);
         toOptions.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Options.class);
