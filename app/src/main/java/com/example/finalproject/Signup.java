@@ -75,16 +75,17 @@ public class Signup extends AppCompatActivity {
    private boolean confirmPasswords(){
         String pass = passwordEditText.getText().toString();
         String pass2 =confirmPassword.getText().toString();
-        if(pass.length() == 6 && 6 == pass2.length()){
+        if(pass.length() >= 6){
             if(pass.equals(pass2))
                 return true;
             else{
                 showToast("Passwords don't match.");
                 return false;
             }
+        }else{
+            showToast("Passwords must be at least 6 characters.");
+            return false;
         }
-        showToast("Passwords must me at least 6 characters.");
-        return false;
    }
 
 
@@ -118,13 +119,8 @@ public class Signup extends AppCompatActivity {
                    if (firebaseUser != null) {
                        String userId = firebaseUser.getUid();
                        User newUser = new User(userId, name, email, accountType);
-                       saveUserProfile(newUser);
 
-                       if ("organization".equals(accountType)) {
-                           //redirect to organization dashboard- can go to add event or organization profile
-                       } else {
-                           navigateToLoginScreen();
-                       }
+                       saveUserProfile(newUser);
 
                        showToast("Registration Successful!");
                    } else {
@@ -153,7 +149,7 @@ public class Signup extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            navigateToNextScreen(user.getAccountType());
+                            navigateToLoginScreen();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -165,13 +161,6 @@ public class Signup extends AppCompatActivity {
         }
     }
 
-    private void navigateToNextScreen(String accountType) {
-        if ("organization".equals(accountType)) {
-            // Redirect to Organization Dashboard or similar
-        } else {
-            navigateToLoginScreen();
-        }
-    }
 
     private void navigateToLoginScreen() {
         Intent intent = new Intent(getApplicationContext(), Login.class);

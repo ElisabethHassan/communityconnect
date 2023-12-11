@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     EditText email, password;
@@ -72,10 +77,37 @@ public class Login extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this, Options.class );
-                    startActivity(intent);
+                if (task.isSuccessful()) {
+                    // Check the account type and redirect accordingly
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        String userId = user.getUid();
+                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    String accountType = dataSnapshot.child("accountType").getValue(String.class);
+
+                                    if ("volunteer".equals(accountType)) {
+                                        // Redirect to Options activity for volunteers
+                                        Intent intent = new Intent(Login.this, Options.class);
+                                        startActivity(intent);
+                                    } else if ("organization".equals(accountType)) {
+                                        // Redirect to Organization Dashboard activity for organizations
+                                        Intent intent = new Intent(Login.this, OrganizationDashboardActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle error
+                            }
+                        });
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Login Failed! Please try again.", Toast.LENGTH_LONG).show();
                 }
