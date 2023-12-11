@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -93,27 +95,45 @@ public class Options extends AppCompatActivity {
                         }
                     }
 
-                    // Update the RecyclerView with the new event list
+                    // sort events by date
+                    Collections.sort(eventList, new Comparator<Event>() {
+                        @Override
+                        public int compare(Event event1, Event event2) {
+                            // date is in the format "MMddyyyy"
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy", Locale.getDefault());
+                            try {
+                                //compare two dates
+                                Date date1 = dateFormat.parse(event1.getDate());
+                                Date date2 = dateFormat.parse(event2.getDate());
+                                return date1.compareTo(date2);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                return 0;
+                            }
+                        }
+                    });
+
+                    // update the RecyclerView with the new event list
                     eventAdapter.setEventList(eventList);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
+                // show error message
                 showToast("Error fetching events: " + databaseError.getMessage());
             }
         });
     }
-
+    //don't show past events
     private boolean isEventValid(Event event) {
         // Get the current date
         Date currentDate = Calendar.getInstance().getTime();
 
-        // Parse the event date from the string format "MMddyyyy" to Date
+        // parse the event date from the string format "MMddyyyy" to date
         Date eventDate = parseEventDate(event.getDate());
 
-        // Check if the event date is in the future
+        // check if the event date is in the future
         return eventDate != null && eventDate.after(currentDate);
     }
 

@@ -3,6 +3,9 @@ package com.example.finalproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Event implements Parcelable {
     private String eventId;
     private String eventName;
@@ -11,9 +14,11 @@ public class Event implements Parcelable {
     private String location;
     private String organization;
     private String description;
+    private List<String> attendees;
 
     public Event() {
         // default constructor
+        this.attendees = new ArrayList<>();
     }
 
     public Event(String eventId, String eventName, String date, String time, String location, String organization, String description) {
@@ -24,6 +29,8 @@ public class Event implements Parcelable {
         this.location = location;
         this.organization = organization;
         this.description = description;
+        this.attendees = new ArrayList<>();
+
     }
 
     public Event(String eventName, String date, String time, String location, String organization, String description) {
@@ -33,6 +40,7 @@ public class Event implements Parcelable {
         this.location = location;
         this.organization = organization;
         this.description = description;
+        this.attendees = new ArrayList<>();
     }
 
     //in order too send it from options to selection page
@@ -130,6 +138,14 @@ public class Event implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<String> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(List<String> attendees) {
+        this.attendees = attendees;
     }
 }
 
