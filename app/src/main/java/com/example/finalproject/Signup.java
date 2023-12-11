@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,22 +21,22 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 
 public class Signup extends AppCompatActivity {
-    EditText fullName, email, password, confirmPassword;
+    EditText nameEditText, emailEditText, passwordEditText, confirmPassword;
     Button signUpButton, loginButton;
 
     FirebaseAuth firebaseAuth;
-
+    RadioGroup accountTypeRadioGroup;
     Boolean success;
 
 
    protected void onCreate(Bundle savedInstanceState){
        super.onCreate(savedInstanceState);
        setContentView(R.layout.signupscreen);
-       fullName = findViewById(R.id.fullNameET);
-       email = findViewById(R.id.emailET);
-       password = findViewById(R.id.passwordET);
+       nameEditText = findViewById(R.id.fullNameET);
+       emailEditText = findViewById(R.id.emailET);
+       passwordEditText = findViewById(R.id.passwordET);
        confirmPassword = findViewById(R.id.confirmPasswordET);
-
+       accountTypeRadioGroup = findViewById(R.id.accountTypeRadioGroup);
        firebaseAuth = FirebaseAuth.getInstance();
 
        signUpButton = findViewById(R.id.signUpSubmit);
@@ -64,10 +65,8 @@ public class Signup extends AppCompatActivity {
 
    }
 
-
-
    private boolean confirmPasswords(){
-        String pass = password.getText().toString();
+        String pass = passwordEditText.getText().toString();
         String pass2 =confirmPassword.getText().toString();
         if(pass.equals(pass2))
             return true;
@@ -77,20 +76,29 @@ public class Signup extends AppCompatActivity {
 
 
    public void onSignup(){
-       String userEmail = email.getText().toString();
-       String userPassword = password.getText().toString();
+       String email = emailEditText.getText().toString().trim();
+       String password = passwordEditText.getText().toString().trim();
+       String name = nameEditText.getText().toString().trim();
+
+
+       String accountType;
+       int selectedRadioButtonId = accountTypeRadioGroup.getCheckedRadioButtonId();
+       if (selectedRadioButtonId == R.id.volunteerRadioButton) {
+           accountType = "volunteer";
+       } else if (selectedRadioButtonId == R.id.organizationRadioButton) {
+           accountType = "organization";
+       } else {
+           Toast.makeText(getApplicationContext(), "Please select an account type.", Toast.LENGTH_SHORT).show();
+           return;
+       }
 
        // Validations for input email and password
-       if (TextUtils.isEmpty(userEmail)) {
-           Toast.makeText(getApplicationContext(), "Please enter email!!", Toast.LENGTH_LONG).show();
-           return;
-       }
-       if (TextUtils.isEmpty(userPassword)) {
-           Toast.makeText(getApplicationContext(), "Please enter password!!", Toast.LENGTH_LONG).show();
+       if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name)) {
+           // Handle the case where any field is empty
            return;
        }
 
-       firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+       firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
            @Override
            public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

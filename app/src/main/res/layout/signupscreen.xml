@@ -83,10 +83,10 @@
         android:layout_height="45dp"
         android:layout_marginTop="28dp"
         android:layout_weight="1"
-        android:textColor="@color/white"
-        android:fontFamily="monospace"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="@string/sign_up"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
@@ -153,4 +153,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/accountTypeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordET">
+
+        <RadioButton
+            android:id="@+id/volunteerRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volunteer"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/organizationRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Organization"
+            android:textColor="@color/white" />
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

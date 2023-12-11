@@ -8,7 +8,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-//THIS IS COMPLETE
 public class Home extends AppCompatActivity {
     Button signUpButton, loginButton;
     protected void onCreate(Bundle savedInstanceState){
