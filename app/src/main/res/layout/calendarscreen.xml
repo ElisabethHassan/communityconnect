@@ -5,32 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray">
+    android:background="@color/lightblue">
+
 
     <Button
         android:id="@+id/toOptionsButton"
-        android:layout_width="wrap_content"
+        android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:text="@string/back_to_options"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textStyle="italic"
-        app:backgroundTint="@color/blue" />
+        app:backgroundTint="@color/gray" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minDate="01012023"
-        android:maxDate="01012032"
-        android:background="@color/white"/>
+        android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/eventListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"/>
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weekNumberColor="@color/white"
+            android:outlineAmbientShadowColor="@color/white"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calendarView"/>
+    </RelativeLayout>
+
 </LinearLayout>

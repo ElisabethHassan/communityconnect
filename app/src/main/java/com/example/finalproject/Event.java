@@ -10,26 +10,29 @@ public class Event implements Parcelable {
     private String time;
     private String location;
     private String organization;
+    private String description;
 
     public Event() {
         // default constructor
     }
 
-    public Event(String eventId, String eventName, String date, String time, String location, String organization) {
+    public Event(String eventId, String eventName, String date, String time, String location, String organization, String description) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.date = date; // date format MMDDYYY
         this.time = time;
         this.location = location;
         this.organization = organization;
+        this.description = description;
     }
 
-    public Event(String eventName, String date, String time, String location, String organization) {
+    public Event(String eventName, String date, String time, String location, String organization, String description) {
         this.eventName = eventName;
         this.date = date; // date format MMDDYYY
         this.time = time;
         this.location = location;
         this.organization = organization;
+        this.description = description;
     }
 
     //in order too send it from options to selection page
@@ -40,6 +43,7 @@ public class Event implements Parcelable {
         time = in.readString();
         location = in.readString();
         organization = in.readString();
+        description = in.readString();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -62,6 +66,7 @@ public class Event implements Parcelable {
         dest.writeString(time);
         dest.writeString(location);
         dest.writeString(organization);
+        dest.writeString(description);
     }
 
     @Override
@@ -117,6 +122,14 @@ public class Event implements Parcelable {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

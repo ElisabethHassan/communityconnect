@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    private EditText editTextEventName, editTextDate, editTextTime, editTextLocation;
+    private EditText editTextEventName, editTextDate, editTextTime, editTextLocation, editTextDescription;
     private Button buttonAddEvent, backButton;
     private DatabaseHelper databaseHelper;
 
@@ -36,8 +36,10 @@ public class AddEventActivity extends AppCompatActivity {
         editTextDate = findViewById(R.id.editTextDate);
         editTextTime = findViewById(R.id.editTextTime);
         editTextLocation = findViewById(R.id.editTextLocation);
+        editTextDescription = findViewById(R.id.editTextDescription);
         buttonAddEvent = findViewById(R.id.buttonAddEvent);
         backButton = findViewById(R.id.backButton2);
+
 
         // Set onClickListener for the "Add Event" button
         buttonAddEvent.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +60,15 @@ public class AddEventActivity extends AppCompatActivity {
 
     private void addEventToDatabase() {
         // Get event information from EditText fields
-        String eventName = editTextEventName.getText().toString().trim();
-        String date = editTextDate.getText().toString().trim();
-        String time = editTextTime.getText().toString().trim();
-        String location = editTextLocation.getText().toString().trim();
+        String eventName = editTextEventName.getText().toString();
+        String date = editTextDate.getText().toString();
+        String time = editTextTime.getText().toString();
+        String location = editTextLocation.getText().toString();
+        String blurb = editTextDescription.getText().toString();
 
         // Validate event information (you can add more validation if needed)
-        if (eventName.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty()) {
-
+        if (eventName.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || blurb.isEmpty()) {
+            showToast("Please enter all information.");
             return;
         }
 
@@ -84,7 +87,7 @@ public class AddEventActivity extends AppCompatActivity {
                         String userName = dataSnapshot.getValue(String.class);
 
                         // Create a new Event object
-                        Event newEvent = new Event(eventName, date, time, location, userName);
+                        Event newEvent = new Event(eventName, date, time, location, userName, blurb);
                         showToast("Event Added: " + eventName);
                         // Add the event to the database
                         databaseHelper.addEvent(newEvent);
