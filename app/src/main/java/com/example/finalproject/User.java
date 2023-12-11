@@ -28,7 +28,6 @@ public class User {
 //    }
 
     public User() {
-
         this.myEvents = new ArrayList<>();
     }
     public String getUserId() {
@@ -69,5 +68,13 @@ public class User {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public List<String> getMyEvents() {
+        return myEvents;
+    }
+
+    public void setMyEvents(List<String> myEvents) {
+        this.myEvents = myEvents;
     }
 }
