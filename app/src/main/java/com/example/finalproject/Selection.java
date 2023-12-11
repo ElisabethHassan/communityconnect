@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// Inside Selection activity
 public class Selection extends AppCompatActivity {
     TextView back, eventNameTextView, eventDateTextView, eventTimeTextView, eventLocationTextView, eventOrgTextView, eventDescriptionTextView;
     Event selectedEvent;
@@ -58,27 +57,26 @@ public class Selection extends AppCompatActivity {
                 if (selectedEvent != null) {
                     String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                    // Add the user's ID to the event's attendees list
+                    // add the user's ID to the event's attendees list
                     List<String> attendees = selectedEvent.getAttendees();
 
-                    // Ensure attendees list is initialized
+                    // make sure that the attendees list is initialized
                     if (attendees == null) {
                         attendees = new ArrayList<>();
                         selectedEvent.setAttendees(attendees);
                     }
 
-                    // Check if the user is already signed up
+                    // check if the user is already signed up
                     if (!attendees.contains(currentUserId)) {
                         attendees.add(currentUserId);
 
-                        // Save the updated event back to Firebase
+                        // save the updated event back to Firebase
                         saveEventToFirebase(selectedEvent);
 
-                        // Optionally, you can update the UI to reflect the change
-                        // or navigate to a different screen.
+                        //show toast if successful
                         showToast("Signed up for the event!");
 
-                        // Now, update the User's myEvents list
+                        //update the user's myEvents list (makes sure database between the two databases are synced)
                         updateUserMyEvents(currentUserId, selectedEvent.getEventId());
                     } else {
                         showToast("You are already signed up for this event.");
@@ -86,12 +84,7 @@ public class Selection extends AppCompatActivity {
                 }
             }
         });
-
-// Method to update User's myEvents list
-
-
-
-
+        //updates UI
         displayEventInfo();
     }
 
@@ -104,39 +97,44 @@ public class Selection extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     User user = dataSnapshot.getValue(User.class);
 
-                    // Add the event ID to the user's myEvents list
+                    // add the event ID to the user's myEvents list
                     List<String> myEvents = user.getMyEvents();
 
-                    // Ensure myEvents list is initialized
+                    // make sure that myEvents list is initialized
                     if (myEvents == null) {
                         myEvents = new ArrayList<>();
                         user.setMyEvents(myEvents);
                     }
 
-                    // Check if the event is not already in the list
+                    // check if the event is not already in the list
                     if (!myEvents.contains(eventId)) {
                         myEvents.add(eventId);
 
-                        // Save the updated user back to Firebase
+                        // save the updated user back to Firebase
                         userRef.setValue(user);
                     }
                 }
             }
 
+            //show toast on error
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
+                showToast("Error occurred.");
             }
         });
     }
+
+    //if user signups, update event in firebase
     private void saveEventToFirebase(Event event) {
-        // Get a reference to the events node in the Firebase Database
+        // reference to the events node in the Firebase Database
         DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference().child("events");
-        // Get the unique identifier (eventId) for the event
+        // eventId for the event
         String eventId = event.getEventId();
-        // Use the eventId to update the event data in the database
+        //  update the event data in the database
         eventsRef.child(eventId).setValue(event);
     }
+
+    //update all info on display with corresponding event
     private void displayEventInfo() {
         if (selectedEvent != null) {
             eventNameTextView.setText(selectedEvent.getEventName());
@@ -147,7 +145,7 @@ public class Selection extends AppCompatActivity {
             eventDescriptionTextView.setText(selectedEvent.getDescription());
         }
     }
-
+    //show toast method, just to help simplify things
     private void showToast(String message) {
         runOnUiThread(new Runnable() {
             @Override

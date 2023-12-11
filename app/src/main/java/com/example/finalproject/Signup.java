@@ -61,8 +61,8 @@ public class Signup extends AppCompatActivity {
            }
        });
 
+       //brings user to login screen
        loginButton.setOnClickListener(new View.OnClickListener(){
-
            @Override
            public void onClick(View view) {
                Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -72,13 +72,17 @@ public class Signup extends AppCompatActivity {
 
    }
 
+   //confirm validity of passwords
    private boolean confirmPasswords(){
         String pass = passwordEditText.getText().toString();
         String pass2 =confirmPassword.getText().toString();
+        //firebase requires password of at least length 6
         if(pass.length() >= 6){
             if(pass.equals(pass2))
+                //password and password confirmation are equal
                 return true;
             else{
+                //if user enters different password alert them
                 showToast("Passwords don't match.");
                 return false;
             }
@@ -93,22 +97,24 @@ public class Signup extends AppCompatActivity {
        String email = emailEditText.getText().toString().trim();
        String password = passwordEditText.getText().toString().trim();
        String name = nameEditText.getText().toString().trim();
-
        String accountType;
+
        int selectedRadioButtonId = accountTypeRadioGroup.getCheckedRadioButtonId();
+
+       //determine which account type was selected
        if (selectedRadioButtonId == R.id.volunteerRadioButton) {
            accountType = "volunteer";
        } else if (selectedRadioButtonId == R.id.organizationRadioButton) {
            accountType = "organization";
        } else {
-           Toast.makeText(getApplicationContext(), "Please select an account type.", Toast.LENGTH_SHORT).show();
-           return;
+           //user can't make an account without picking an account type
+            showToast("Select an account type!") ;
+            return;
        }
 
-       // Validations for input email and password
+       // make sure user inputs all required information
        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name)) {
-           showToast("");
-           Toast.makeText(getApplicationContext(), "Make sure to enter your name, email & password.", Toast.LENGTH_SHORT).show();
+           showToast("Make sure to enter all information!");
            return;
        }
 
@@ -119,15 +125,20 @@ public class Signup extends AppCompatActivity {
                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                    if (firebaseUser != null) {
                        String userId = firebaseUser.getUid();
+                       //create user object with all info
                        User newUser = new User(userId, name, email, accountType);
 
+                       //save user in firebase
                        saveUserProfile(newUser);
 
+                       //let user know their account was made successfully
                        showToast("Registration Successful!");
                    } else {
+                       //show toast on error
                        showToast("Registration Failed! Please try again.");
                    }
                } else {
+                   //show toast on error
                    showToast("Registration Failed! Please try again.");
                }
            }
@@ -141,6 +152,7 @@ public class Signup extends AppCompatActivity {
             String userId = firebaseUser.getUid();
             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
+            //make hashmap of user data to store in firebase
             Map<String, Object> userData = new HashMap<>();
             userData.put("name", user.getName());
             userData.put("email", user.getEmail());
@@ -150,10 +162,12 @@ public class Signup extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            //if user account made successful bring them to login (app doesn't grant auto access upon signing up)
                             navigateToLoginScreen();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
+                        //show toast on error
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             showToast("Failed to save user profile.");
@@ -162,12 +176,13 @@ public class Signup extends AppCompatActivity {
         }
     }
 
-
+    //navigate user to login screen
     private void navigateToLoginScreen() {
         Intent intent = new Intent(getApplicationContext(), Login.class);
         startActivity(intent);
     }
 
+    //show toast method, just to help simplify things
     private void showToast(String message) {
         runOnUiThread(new Runnable() {
             @Override

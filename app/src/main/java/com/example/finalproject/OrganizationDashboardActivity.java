@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,20 +28,20 @@ public class OrganizationDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization_dashboard);
 
-        // Initialize views
+        // initialize views
         welcomeTextView = findViewById(R.id.welcomeTextView);
         logoutButton = findViewById(R.id.logoutButton);
         addEventButton = findViewById(R.id.addEventButton);
         seeProfileButton = findViewById(R.id.seeProfileButton);
 
-        // Fetch and display organization name
+        // fetch and display organization name
         fetchOrganizationName();
 
-        // Set click listeners for buttons
+        // listeners f
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Perform logout and return to the Home page
+                // logs out user
                 logout();
             }
         });
@@ -48,7 +49,7 @@ public class OrganizationDashboardActivity extends AppCompatActivity {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navigate to the Add Event activity
+                // navigate to the Add Event activity
                 navigateToAddEvent();
             }
         });
@@ -56,12 +57,13 @@ public class OrganizationDashboardActivity extends AppCompatActivity {
         seeProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navigate to the Profile activity
+                // navigate to the Profile activity
                 navigateToProfile();
             }
         });
     }
 
+    //gets the current user's name since only organization account types can access this page
     private void fetchOrganizationName() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -73,10 +75,10 @@ public class OrganizationDashboardActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        // User data found, retrieve organization name
+                        // user data found, retrieve organization name
                         String organizationName = dataSnapshot.child("organizationName").getValue(String.class);
 
-                        // Display the organization name in the welcome message
+                        // display the organization name in the welcome message
                         if (organizationName != null) {
                             welcomeTextView.setText("Welcome, " + organizationName);
                         }
@@ -85,7 +87,7 @@ public class OrganizationDashboardActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Handle error
+                    showToast("Error");
                 }
             });
         }
@@ -111,5 +113,16 @@ public class OrganizationDashboardActivity extends AppCompatActivity {
         // navigate to the profile activity
         Intent intent = new Intent(OrganizationDashboardActivity.this, ProfileActivity.class);
         startActivity(intent);
+    }
+
+
+    //show toast method, just to help simplify things
+    private void showToast(String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

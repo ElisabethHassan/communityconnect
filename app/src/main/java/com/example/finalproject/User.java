@@ -18,26 +18,6 @@ public class User {
         this.accountType = accountType;
     }
 
-    public User(String name, String email, String accountType) {
-        this.name = name;
-        this.email = email;
-        this.accountType = accountType;
-    }
-//    public User(){
-//        //default constructor
-//    }
-
-    public User() {
-        this.myEvents = new ArrayList<>();
-    }
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public String getName() {
         return name;
     }
@@ -50,24 +30,8 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
-
     public String getAccountType() {
         return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
     }
 
     public List<String> getMyEvents() {
