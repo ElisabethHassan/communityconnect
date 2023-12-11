@@ -7,11 +7,10 @@ public class User {
     private String profileImageUrl;
     private String accountType; //volunteer or organization
 
-    public User(String userId, String name, String email, String profileImageUrl, String accountType) {
+    public User(String userId, String name, String email, String accountType) {
         this.userId = userId;
         this.name = name;
         this.email = email;
-        this.profileImageUrl = profileImageUrl;
         this.accountType = accountType;
     }
 
