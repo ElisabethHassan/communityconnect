@@ -11,7 +11,8 @@ import androidx.cardview.widget.CardView;
 public class Options extends AppCompatActivity {
 
     CardView cardView, cardView2;
-    Button calendarButton;
+    Button calendarButton, toProfileButton;
+
 
     View.OnClickListener cardClickListener = new View.OnClickListener() {
         @Override
@@ -38,8 +39,20 @@ public class Options extends AppCompatActivity {
             }
         });
 
+        toProfileButton = findViewById(R.id.toProfButton);
+        toProfileButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         cardView.setOnClickListener(cardClickListener);
         cardView2.setOnClickListener(cardClickListener);
     }
+
+
 }

@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView nameTextViewUPDATE, emailTextViewUPDATE, accountTypeTextViewUPDATE;
-    private Button logOutButton;
+    private Button logOutButton, backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
         emailTextViewUPDATE = findViewById(R.id.emailTextViewUPDATE);
         accountTypeTextViewUPDATE = findViewById(R.id.accountTypeTextViewUPDATE);
         logOutButton = findViewById(R.id.logoutButton);
-
+        backButton = findViewById(R.id.backButton);
         // Fetch and display user information from Firebase
         displayUserProfile();
 
@@ -37,6 +37,39 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Perform logout and return to the Home page
                 logout();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (firebaseUser != null) {
+                    String userId = firebaseUser.getUid();
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                String userAccountType = dataSnapshot.child("accountType").getValue(String.class);
+                                if(userAccountType.equals("volunteer")) {
+                                    Intent intent = new Intent(ProfileActivity.this, Options.class);
+                                    startActivity(intent);
+                                }else{ //if not volunteer then user is an organization
+                                    Intent intent = new Intent(ProfileActivity.this, OrganizationDashboardActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
+                        }
+                    });
+                }
             }
         });
 
