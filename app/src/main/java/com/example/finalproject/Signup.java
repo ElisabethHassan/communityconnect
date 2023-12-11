@@ -107,6 +107,7 @@ public class Signup extends AppCompatActivity {
 
        // Validations for input email and password
        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name)) {
+           showToast("");
            Toast.makeText(getApplicationContext(), "Make sure to enter your name, email & password.", Toast.LENGTH_SHORT).show();
            return;
        }

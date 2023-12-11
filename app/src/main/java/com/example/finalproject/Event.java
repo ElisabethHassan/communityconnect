@@ -6,21 +6,26 @@ public class Event {
     private String date;
     private String time;
     private String location;
-    private String address;
-    private String organizationId;
+    private String organization;
 
 
     public Event() {
     }
 
-    public Event(String eventId, String eventName, String date, String time, String location, String address, String organizationId) {
+    public Event(String eventId, String eventName, String date, String time, String location, String organization) {
         this.eventId = eventId;
         this.eventName = eventName;
-        this.date = date;
+        this.date = date; //date format MMDDYYY
         this.time = time;
         this.location = location;
-        this.address = address;
-        this.organizationId = organizationId;
+        this.organization = organization;
+    }
+    public Event(String eventName, String date, String time, String location, String organization) {
+        this.eventName = eventName;
+        this.date = date; //date format MMDDYYY
+        this.time = time;
+        this.location = location;
+        this.organization = organization;
     }
 
     public String getEventId() {
@@ -63,19 +68,12 @@ public class Event {
         this.location = location;
     }
 
-    public String getAddress() {
-        return address;
+
+    public String getOrganization() {
+        return organization;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getOrganizationId() {
-        return organizationId;
-    }
-
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 }

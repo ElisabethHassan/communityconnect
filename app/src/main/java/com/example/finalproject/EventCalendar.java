@@ -83,5 +83,12 @@ public class EventCalendar extends AppCompatActivity {
         // Update the ListView
         eventAdapter.notifyDataSetChanged();
     }
-
+    private void showToast(String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
