@@ -1,5 +1,8 @@
 package com.example.finalproject;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView nameTextViewUPDATE, emailTextViewUPDATE, accountTypeTextViewUPDATE;
+    private Button logOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +27,30 @@ public class ProfileActivity extends AppCompatActivity {
         nameTextViewUPDATE = findViewById(R.id.nameTextViewUPDATE);
         emailTextViewUPDATE = findViewById(R.id.emailTextViewUPDATE);
         accountTypeTextViewUPDATE = findViewById(R.id.accountTypeTextViewUPDATE);
+        logOutButton = findViewById(R.id.logoutButton);
 
         // Fetch and display user information from Firebase
         displayUserProfile();
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Perform logout and return to the Home page
+                logout();
+            }
+        });
+
     }
 
+    private void logout() {
+        //sign out user
+        FirebaseAuth.getInstance().signOut();
+
+        //navigate to the home page
+        Intent intent = new Intent(ProfileActivity.this, Home.class);
+        startActivity(intent);
+
+    }
     private void displayUserProfile() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 

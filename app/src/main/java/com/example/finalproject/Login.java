@@ -1,11 +1,14 @@
 package com.example.finalproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,47 +51,43 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginscreen);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         email = findViewById(R.id.email_ET);
         password = findViewById(R.id.password_ET);
         loginButton = findViewById(R.id.button);
         signup = findViewById(R.id.loginTV);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+
 
         loginButton.setOnClickListener(loginListener);
         signup.setOnClickListener(signUpListener);
     }
 
-    private void loginUser(){
+    private void loginUser() {
         String userEmail = email.getText().toString();
         String userPassword = password.getText().toString();
-
-        // Validations for input email and password
-        if (TextUtils.isEmpty(userEmail)) {
-            Toast.makeText(getApplicationContext(), "Please enter email!!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (TextUtils.isEmpty(userPassword)) {
-            Toast.makeText(getApplicationContext(), "Please enter password!!", Toast.LENGTH_LONG).show();
-            return;
-        }
 
         firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    // Check the account type and redirect accordingly
+                    Log.d(TAG, "Login successful");
+
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
                         String userId = user.getUid();
+                        Log.d(TAG, "User ID: " + userId);
+
                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Log.d(TAG, "onDataChange executed");
                                 if (dataSnapshot.exists()) {
                                     String accountType = dataSnapshot.child("accountType").getValue(String.class);
+                                    Log.d(TAG, "Account type: " + accountType);
 
                                     if ("volunteer".equals(accountType)) {
                                         // Redirect to Options activity for volunteers
@@ -104,15 +103,16 @@ public class Login extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // Handle error
+                                Log.e(TAG, "Database error: " + databaseError.getMessage());
                             }
                         });
                     }
                 } else {
+                    Log.e(TAG, "Login failed: " + task.getException().getMessage());
                     Toast.makeText(getApplicationContext(), "Login Failed! Please try again.", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
     }
+
 }
