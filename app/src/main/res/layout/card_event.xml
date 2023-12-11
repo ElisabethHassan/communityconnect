@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/gray">
+    android:background="@color/white">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/title"
@@ -22,7 +23,7 @@
             android:layout_marginEnd="36dp"
             android:text="event"
             android:textSize="13sp"
-            android:textColor="@color/white"
+            android:textColor="@color/blue"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -47,7 +48,7 @@
             android:layout_marginEnd="100dp"
             android:text="date"
             android:textSize="10sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location" />
 
@@ -58,7 +59,7 @@
             android:layout_marginEnd="60dp"
             android:text="time"
             android:textSize="10sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -70,7 +71,7 @@
             android:layout_marginEnd="36dp"
             android:text="organization"
             android:textSize="10sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/time" />

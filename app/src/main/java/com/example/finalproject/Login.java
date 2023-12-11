@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
     View.OnClickListener signUpListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(Login.this, Signup.class );
+            Intent intent = new Intent(Login.this, Signup.class);
             startActivity(intent);
         }
     };
@@ -59,7 +59,6 @@ public class Login extends AppCompatActivity {
         signup = findViewById(R.id.loginTV);
 
 
-
         loginButton.setOnClickListener(loginListener);
         signup.setOnClickListener(signUpListener);
     }
@@ -67,52 +66,55 @@ public class Login extends AppCompatActivity {
     private void loginUser() {
         String userEmail = email.getText().toString();
         String userPassword = password.getText().toString();
+        if (userEmail.isEmpty() || userPassword.isEmpty())
+            Toast.makeText(getApplicationContext(), "Please enter login information.", Toast.LENGTH_LONG).show();
+        else {
+            firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Login successful");
 
-        firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "Login successful");
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            String userId = user.getUid();
+                            Log.d(TAG, "User ID: " + userId);
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user != null) {
-                        String userId = user.getUid();
-                        Log.d(TAG, "User ID: " + userId);
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
-                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Log.d(TAG, "onDataChange executed");
+                                    if (dataSnapshot.exists()) {
+                                        String accountType = dataSnapshot.child("accountType").getValue(String.class);
+                                        Log.d(TAG, "Account type: " + accountType);
 
-                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Log.d(TAG, "onDataChange executed");
-                                if (dataSnapshot.exists()) {
-                                    String accountType = dataSnapshot.child("accountType").getValue(String.class);
-                                    Log.d(TAG, "Account type: " + accountType);
-
-                                    if ("volunteer".equals(accountType)) {
-                                        // Redirect to Options activity for volunteers
-                                        Intent intent = new Intent(Login.this, Options.class);
-                                        startActivity(intent);
-                                    } else if ("organization".equals(accountType)) {
-                                        // Redirect to Organization Dashboard activity for organizations
-                                        Intent intent = new Intent(Login.this, OrganizationDashboardActivity.class);
-                                        startActivity(intent);
+                                        if ("volunteer".equals(accountType)) {
+                                            // Redirect to Options activity for volunteers
+                                            Intent intent = new Intent(Login.this, Options.class);
+                                            startActivity(intent);
+                                        } else if ("organization".equals(accountType)) {
+                                            // Redirect to Organization Dashboard activity for organizations
+                                            Intent intent = new Intent(Login.this, OrganizationDashboardActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                Log.e(TAG, "Database error: " + databaseError.getMessage());
-                            }
-                        });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Log.e(TAG, "Database error: " + databaseError.getMessage());
+                                }
+                            });
+                        }
+                    } else {
+                        Log.e(TAG, "Login failed: " + task.getException().getMessage());
+                        Toast.makeText(getApplicationContext(), "Login Failed! Please try again.", Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Log.e(TAG, "Login failed: " + task.getException().getMessage());
-                    Toast.makeText(getApplicationContext(), "Login Failed! Please try again.", Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+            });
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,10 +47,13 @@ public class Options extends AppCompatActivity {
         setContentView(R.layout.optionsscreen);
         eventAdapter = new EventAdapter();
 
-        //cardView = findViewById(R.id.cardView);
-        //cardView2 = findViewById(R.id.cardView2);
+        recyclerView = findViewById(R.id.recyclerViewEvents);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(eventAdapter);
+        eventList = new ArrayList<>();
+        calendarButton = findViewById(R.id.calendarButton);
 
-        calendarButton= findViewById(R.id.calendarButton);
+
         calendarButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -70,8 +75,6 @@ public class Options extends AppCompatActivity {
 
         fetchEventsFromFirebase();
 
-        //cardView.setOnClickListener(cardClickListener);
-        //cardView2.setOnClickListener(cardClickListener);
     }
 
     private void fetchEventsFromFirebase() {

@@ -1,6 +1,9 @@
 package com.example.finalproject;
 
-public class Event {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Event implements Parcelable {
     private String eventId;
     private String eventName;
     private String date;
@@ -8,26 +11,66 @@ public class Event {
     private String location;
     private String organization;
 
-
     public Event() {
+        // default constructor
     }
 
     public Event(String eventId, String eventName, String date, String time, String location, String organization) {
         this.eventId = eventId;
         this.eventName = eventName;
-        this.date = date; //date format MMDDYYY
-        this.time = time;
-        this.location = location;
-        this.organization = organization;
-    }
-    public Event(String eventName, String date, String time, String location, String organization) {
-        this.eventName = eventName;
-        this.date = date; //date format MMDDYYY
+        this.date = date; // date format MMDDYYY
         this.time = time;
         this.location = location;
         this.organization = organization;
     }
 
+    public Event(String eventName, String date, String time, String location, String organization) {
+        this.eventName = eventName;
+        this.date = date; // date format MMDDYYY
+        this.time = time;
+        this.location = location;
+        this.organization = organization;
+    }
+
+    //in order too send it from options to selection page
+    protected Event(Parcel in) {
+        eventId = in.readString();
+        eventName = in.readString();
+        date = in.readString();
+        time = in.readString();
+        location = in.readString();
+        organization = in.readString();
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(eventId);
+        dest.writeString(eventName);
+        dest.writeString(date);
+        dest.writeString(time);
+        dest.writeString(location);
+        dest.writeString(organization);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+    //getters and setters
     public String getEventId() {
         return eventId;
     }
@@ -68,7 +111,6 @@ public class Event {
         this.location = location;
     }
 
-
     public String getOrganization() {
         return organization;
     }
@@ -77,3 +119,7 @@ public class Event {
         this.organization = organization;
     }
 }
+
+
+
+
