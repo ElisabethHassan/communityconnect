@@ -11,6 +11,8 @@ public class User {
     private String accountType; //volunteer or organization
     private List<String> myEvents;
 
+    public User(){}
+
     public User(String userId, String name, String email, String accountType) {
         this.userId = userId;
         this.name = name;
