@@ -44,15 +44,16 @@ public class EventCalendar extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(eventAdapter);
 
-        // Set a listener for calendar view date changes
+        // set listener for calendar view date changes
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                // Handle the selected date change
+                //when date selected get events from firebase
                 fetchEventsForSelectedDay(year, month, dayOfMonth);
             }
         });
 
+        //redirects users back to options page (previous page)
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,13 +63,16 @@ public class EventCalendar extends AppCompatActivity {
         });
     }
 
+
+    //get events from firebase for selected date
     private void fetchEventsForSelectedDay(int year, int month, int dayOfMonth) {
         DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference().child("events");
 
-        // Format the selected date to match your database date format (MMDDYYYY)
+        // format the selected date to match your database date format (MMDDYYYY)
+        // for date picker months need to have 1 added to get correct month
         String formattedDate = formatDate(year, month + 1, dayOfMonth);
 
-        // Query events for the selected date
+        // query events for the selected date
         eventsRef.orderByChild("date").equalTo(formattedDate).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,13 +85,13 @@ public class EventCalendar extends AppCompatActivity {
                     }
                 }
 
-                // Update the RecyclerView with the new event list
+                // update the RecyclerView with the new event list
                 eventAdapter.setEventList(eventList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
+                //show toast on error
                 showToast("Error fetching events: " + databaseError.getMessage());
             }
         });
@@ -96,6 +100,8 @@ public class EventCalendar extends AppCompatActivity {
         //format: 2 digits for day, 2 digits for month, 4 digits for year
         return String.format(Locale.getDefault(), "%02d%02d%04d", month, dayOfMonth, year);
     }
+
+    //show toast method for simplicity
     private void showToast(String message) {
         runOnUiThread(new Runnable() {
             @Override

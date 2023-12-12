@@ -58,11 +58,11 @@ public class Login extends AppCompatActivity {
         loginButton = findViewById(R.id.button);
         signup = findViewById(R.id.loginTV);
 
-
         loginButton.setOnClickListener(loginListener);
         signup.setOnClickListener(signUpListener);
     }
 
+    //login in the user confirming it is a valid user in firebase
     private void loginUser() {
         String userEmail = email.getText().toString();
         String userPassword = password.getText().toString();
@@ -91,17 +91,17 @@ public class Login extends AppCompatActivity {
                                         Log.d(TAG, "Account type: " + accountType);
 
                                         if ("volunteer".equals(accountType)) {
-                                            // Redirect to Options activity for volunteers
+                                            // redirect to options activity for volunteers members
                                             Intent intent = new Intent(Login.this, Options.class);
                                             startActivity(intent);
                                         } else if ("organization".equals(accountType)) {
-                                            // Redirect to Organization Dashboard activity for organizations
+                                            // redirect to organization dashboard  for organizations members
                                             Intent intent = new Intent(Login.this, OrganizationDashboardActivity.class);
                                             startActivity(intent);
                                         }
                                     }
                                 }
-
+                                //log error
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
                                     Log.e(TAG, "Database error: " + databaseError.getMessage());
@@ -109,6 +109,7 @@ public class Login extends AppCompatActivity {
                             });
                         }
                     } else {
+                        //log error and show toast if login failed
                         Log.e(TAG, "Login failed: " + task.getException().getMessage());
                         Toast.makeText(getApplicationContext(), "Login Failed! Please try again.", Toast.LENGTH_LONG).show();
                     }

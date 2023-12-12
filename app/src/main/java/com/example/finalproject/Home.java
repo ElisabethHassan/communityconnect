@@ -16,6 +16,7 @@ public class Home extends AppCompatActivity {
         signUpButton = findViewById(R.id.toSignUp);
         loginButton = findViewById(R.id.toLogin);
 
+        //directs users to sign up page for account creation
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,6 +25,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        //directs users to login page if they already have an account
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

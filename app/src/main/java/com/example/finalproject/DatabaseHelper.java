@@ -16,7 +16,7 @@ public class DatabaseHelper {
     DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference().child("events");
     DatabaseReference orgREf = FirebaseDatabase.getInstance().getReference().child("organizations");
 
-
+    //helps with connections between the databases that has the events and the users
     public DatabaseHelper() {
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
     }
@@ -28,6 +28,7 @@ public class DatabaseHelper {
         databaseReference.child("events").child(eventId).setValue(event);
     }
 
+    //for database of organizations -> this was not implemented
     public void addOrganization(Organization organization) {
         String orgId = databaseReference.child("organizations").push().getKey();
         organization.setOrganizationId(orgId);

@@ -28,10 +28,9 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        // Initialize Firebase Database
+
         databaseHelper = new DatabaseHelper();
 
-        // Initialize UI elements
         editTextEventName = findViewById(R.id.editTextEventName);
         editTextDate = findViewById(R.id.editTextDate);
         editTextTime = findViewById(R.id.editTextTime);
@@ -41,7 +40,7 @@ public class AddEventActivity extends AppCompatActivity {
         backButton = findViewById(R.id.backButton2);
 
 
-        // Set onClickListener for the "Add Event" button
+        // listeners
         buttonAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,25 +58,26 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void addEventToDatabase() {
-        // Get event information from EditText fields
+        // get event information from EditText fields
         String eventName = editTextEventName.getText().toString();
         String date = editTextDate.getText().toString();
         String time = editTextTime.getText().toString();
         String location = editTextLocation.getText().toString();
         String blurb = editTextDescription.getText().toString();
 
-        // Validate event information (you can add more validation if needed)
+        // validate event information (no field can be empty)
         if (eventName.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || blurb.isEmpty()) {
             showToast("Please enter all information.");
             return;
         }
 
-        // Get the current user's ID
+        //organization associated with event is autofilled with the current user's id
+        // get  current user's ID
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            // Retrieve the user's name from the database
+            // get user's name from the database
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("name");
 
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -86,23 +86,25 @@ public class AddEventActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         String userName = dataSnapshot.getValue(String.class);
 
-                        // Create a new Event object
+                        // create a new Event object
                         Event newEvent = new Event(eventName, date, time, location, userName, blurb);
                         showToast("Event Added: " + eventName);
-                        // Add the event to the database
+                        // add the event to the database
                         databaseHelper.addEvent(newEvent);
 
                     }
                 }
 
+                //show toast on error
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Handle error
+                    showToast("Error occurred.");
                 }
             });
         }
     }
 
+    //show toast method for simplicity
     private void showToast(String message) {
         runOnUiThread(new Runnable() {
             @Override
